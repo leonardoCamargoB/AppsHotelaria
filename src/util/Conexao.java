@@ -23,14 +23,11 @@ public class Conexao {
             condb = DriverManager.getConnection(url, user, senha);
             return condb;
 
-        } catch (SQLException erro) {
+        } catch (SQLException | ClassNotFoundException erro) {
 
             System.out.println("Erro ao conectar com o banco de dados" + erro);
             return null;
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
+         }
     }
-
 }
+
