@@ -1,5 +1,7 @@
 package util;
 
+import dao.*;
+
 import java.sql.Connection;
 
 public class TesteConexaoDB {
@@ -12,7 +14,10 @@ public class TesteConexaoDB {
          System.out.println("Conexão realizada com sucesso!");
 
          try {
-             condb.close();
+            QuartosDAO quartosDAO = new QuartosDAO();
+             quartosDAO.inserirQuartos();
+             System.out.println("Quarto inserido com sucesso!");
+
              System.out.println("Conexão encerrada!");
          } catch (Exception erro) {
              System.out.println("Erro ao encerrar a conexão" + erro.getLocalizedMessage());
