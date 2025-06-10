@@ -15,8 +15,8 @@ public class TesteConexaoDB {
 
          try {
             QuartosDAO quartosDAO = new QuartosDAO();
-             quartosDAO.inserirQuartos();
-             System.out.println("Quarto inserido com sucesso!");
+             quartosDAO.alterarQuarto();
+             System.out.println("Quarto alterado com sucesso!");
 
              System.out.println("Conexão encerrada!");
          } catch (Exception erro) {

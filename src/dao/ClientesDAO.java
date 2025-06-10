@@ -35,5 +35,41 @@ import java.sql.PreparedStatement;
                 return false;
             }
         }
+
+        public boolean alterarCliente() {
+            try {
+                Connection conndb = conexao.conectar();
+                PreparedStatement clienteAlterado = conndb.prepareStatement
+                        ("UPDATE clientes" + "SET nome = ?, cpf = ?, telefone = ?, email = ? + ?, " +
+                                "fk_regras = ? WHERE id = ?; ");
+                clienteAlterado.setString(1, "");
+                clienteAlterado.setString(2, "");
+                clienteAlterado.setString(3, "");
+                clienteAlterado.setInt(4, 1);
+                clienteAlterado.setInt(5, 1);
+                int linhaAfetada = clienteAlterado.executeUpdate();
+                conndb.close();
+                return linhaAfetada > 0;
+            } catch (Exception erro) {
+                System.out.println("Erro ao alterar cliente: " + erro);
+                return false;
+            }
+        }
+        public boolean deletarClientes() {
+            try {
+                Connection conndb = conexao.conectar();
+                PreparedStatement removerCliente = conndb.prepareStatement ("DELETE FROM clientes WHERE id = ?;");
+
+                removerCliente.setInt(1,1);
+
+                int LinhaAfetada = removerCliente.executeUpdate();
+                return LinhaAfetada > 0;
+            }
+            catch (Exception erro) {
+                System.out.println("Erro ao deletar cliente: " + erro);
+                return false;
+            }
+
+        }
     }
 

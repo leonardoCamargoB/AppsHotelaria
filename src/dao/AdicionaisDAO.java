@@ -35,5 +35,40 @@ public class AdicionaisDAO {
             return false;
         }
     }
+
+
+    public boolean alterarAdicionalo() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement adicionalAlterado = conndb.prepareStatement
+                    ("UPDATE adicionais" + "SET nome = ?, preco = ? + ?, " +
+                            "fk_regras = ? WHERE id = ?; ");
+            adicionalAlterado.setString(1, "");
+            adicionalAlterado.setInt(2, 150);
+            int linhaAfetada = adicionalAlterado.executeUpdate();
+            conndb.close();
+            return linhaAfetada > 0;
+        } catch (Exception erro) {
+            System.out.println("Erro ao alterar adicional: " + erro);
+            return false;
+        }
+    }
+
+    public boolean deletarAdicionais() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement removerAdicional = conndb.prepareStatement ("DELETE FROM adicionais WHERE id = ?;");
+
+            removerAdicional.setInt(1,1);
+
+            int LinhaAfetada = removerAdicional.executeUpdate();
+            return LinhaAfetada > 0;
+        }
+        catch (Exception erro) {
+            System.out.println("Erro ao deletar adicional: " + erro);
+            return false;
+        }
+
+    }
 }
 
