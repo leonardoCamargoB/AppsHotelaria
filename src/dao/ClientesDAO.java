@@ -2,8 +2,7 @@ package dao;
 
 import util.Conexao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 import model.Usuarios;
 import util.Conexao;
@@ -53,6 +52,26 @@ import java.sql.PreparedStatement;
             } catch (Exception erro) {
                 System.out.println("Erro ao alterar cliente: " + erro);
                 return false;
+            }
+
+
+        }
+        public void pesquisarCliente() {
+            try {
+                Connection conndb = conexao.conectar();
+                PreparedStatement buscaCliente = conndb.prepareStatement("SELECT nome, email" +
+                        "FROM clientes WHERE id = ?");
+                buscaCliente.setInt(1,1);
+                ResultSet resultado = buscaCliente.executeQuery();
+
+                while (resultado.next()) {
+                    String nome = resultado.getString("nome");
+                    String email = resultado.getString("email");
+                    System.out.println("Nome: " + nome + " - Email" + email);
+                } conndb.close();
+            }
+            catch (Exception erro) {
+                System.out.println("Erro ao pesquisar cliente: " + erro);
             }
         }
         public boolean deletarClientes() {

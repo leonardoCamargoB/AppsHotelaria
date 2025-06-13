@@ -2,8 +2,7 @@ package dao;
 
 import util.Conexao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 import model.Usuarios;
 import util.Conexao;
@@ -58,6 +57,24 @@ public class QuartosDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao alterar quarto: " + erro);
             return false;
+        }
+    }
+    public void pesquisarQuartos() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement buscaQuartos = conndb.prepareStatement("SELECT nome, numero" +
+                    "FROM quartos WHERE id = ?");
+            buscaQuartos.setInt(1,1);
+            ResultSet resultado = buscaQuartos.executeQuery();
+
+            while (resultado.next()) {
+                String nome = resultado.getString("nome");
+                String numero = resultado.getString("numero");
+                System.out.println("Nome: " + nome + " - numero" + numero);
+            } conndb.close();
+        }
+        catch (Exception erro) {
+            System.out.println("Erro ao pesquisar usuario: " + erro);
         }
     }
     public boolean deletarQuartos() {

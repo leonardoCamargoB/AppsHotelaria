@@ -2,8 +2,7 @@ package dao;
 
 import util.Conexao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 import model.Usuarios;
 import util.Conexao;
@@ -51,6 +50,24 @@ public class AdicionaisDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao alterar adicional: " + erro);
             return false;
+        }
+    }
+    public void pesquisarAdicionais() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement buscaAdicionais = conndb.prepareStatement("SELECT nome, preço" +
+                    "FROM adicionais WHERE id = ?");
+            buscaAdicionais.setInt(1,1);
+            ResultSet resultado = buscaAdicionais.executeQuery();
+
+            while (resultado.next()) {
+                String nome = resultado.getString("nome");
+                String preco = resultado.getString("preço");
+                System.out.println("Nome: " + nome + " - preço" + preco);
+            } conndb.close();
+        }
+        catch (Exception erro) {
+            System.out.println("Erro ao pesquisar usuario: " + erro);
         }
     }
 

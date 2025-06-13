@@ -1,10 +1,12 @@
 package dao;
 
+import com.mysql.cj.protocol.Resultset;
 import model.Usuarios;
 import util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ServiceLoader;
 
 public class UsuariosDAO {
@@ -47,6 +49,24 @@ public class UsuariosDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao alterar usuario: " + erro);
             return false;
+        }
+    }
+    public void pesquisarUsuario() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement buscaUsuario = conndb.prepareStatement("SELECT nome, email" +
+                    "FROM usuarios WHERE cargo_id = ?");
+            buscaUsuario.setInt(1,1);
+            ResultSet resultado = buscaUsuario.executeQuery();
+
+            while (resultado.next()) {
+                String nome = resultado.getString("nome");
+                String email = resultado.getString("email");
+                System.out.println("Nome: " + nome + " - Email" + email);
+            } conndb.close();
+        }
+        catch (Exception erro) {
+            System.out.println("Erro ao pesquisar usuario: " + erro);
         }
     }
 
