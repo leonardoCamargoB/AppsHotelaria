@@ -5,9 +5,9 @@ public class Pessoa {
     private String nome;
     private String email;
 
-    public Pessoa(String nome, String cpf) {
+    public Pessoa(String nome, String email) {
         this.nome = nome;
-        this.email = cpf;
+        this.email = email;
     }
 
     public String getNome() {
